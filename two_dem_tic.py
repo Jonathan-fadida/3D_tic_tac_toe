@@ -3,5 +3,3 @@ class TwoDemBoard:
         pass
 
 
-class myclass:
-    pass
