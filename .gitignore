@@ -1,0 +1,10 @@
+*.pyc
+__pycache__/
+*.pyo
+*.egg-info/
+.venv/
+.vscode/
+.metadata/
+*.bak
+.git/
+*.log
