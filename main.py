@@ -1,7 +1,6 @@
 from three_dem_tic import ThreeDemBoard
-from player import Player
+#from player import Player
 
-
+my_list = []
 if __name__ == '__main__':
-    #board = ThreeDemBoard(param1, param2)
-    print("hello")
+    board = ThreeDemBoard()
