@@ -3,15 +3,16 @@ class TwoDemBoard:
         self.board_list = []
 
     def init_board(self):
-
         for i in range(1, 10):
             self.board_list.append(i)
 
     # a function that print the 2d board
     # prints out self.board_list in an ordered way
     # does not return anything
-    def print_board(self):
+    def print_board(self,board_num):
         my_str = (f'''
+                     Board {board_num}:
+                    
                      {self.board_list[0]} | {self.board_list[1]} | {self.board_list[2]} 
                     -----------
                      {self.board_list[3]} | {self.board_list[4]} | {self.board_list[5]}
@@ -70,13 +71,13 @@ class TwoDemBoard:
     # Inside (Private) function that checks for a Row that includes the same values, three 'X' or three 'O'.
     # Input: only the self.board_list that is built in our class
     # returns True,'X' or 'O' if the indexes 0,1,2 (1st row) or 3,4,5 (2nd row) or 6,7,8 (3rd row) is the same value
-    def __check_row_winner(self):
+    def __check_row_winner(self,num):
         my_list = self.board_list
         for i in range(0, len(my_list), 3):
             if my_list[i] == my_list[i+1] and my_list[i] == my_list[i+2]:
                 return True, my_list[i]
         # for loop finished and it did Not find a match
-        return (False, )
+        return False, None
 
     # Inside (Private) function that checks for a Column that includes the same values, three 'X' or three 'O'.
     # Input: only the self.board_list that is built in our class
