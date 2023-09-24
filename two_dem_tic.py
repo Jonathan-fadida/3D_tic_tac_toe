@@ -3,6 +3,7 @@ class TwoDemBoard:
         self.board_list = []
 
     def init_board(self):
+        self.board_list = []
         for i in range(1, 10):
             self.board_list.append(i)
 
@@ -25,12 +26,14 @@ class TwoDemBoard:
     # Input: player_index: int, player_choice: str
     # returns True if player_index is between 1 and 9 and player_choice is 'X' or 'O', else false
     def __is_move_valid(self, player_index, player_choice):
+        if type(player_index) != int:
+            print("Wrong type value, must be a number between 1 and 9")
+            return False
         if player_index < 1 or player_index > 9:
             print("Wrong int value on board, must be between 1 and 9")
             return False
-        elif type(self.board_list[player_index]) != int:
-            print(f"This place is Already Chosen, '{self.board_list[player_index]}'. please choose another place")
-            print(type(self.board_list[player_index]))
+        elif type(self.board_list[player_index-1]) != int:
+            print(f"This place is Already Chosen, '{self.board_list[player_index-1]}'. please choose another place")
             return False
         elif player_choice != "X" and player_choice != "O":
             print("Wrong user choice")
@@ -43,7 +46,7 @@ class TwoDemBoard:
     # returns True if successfully changed and False for failure to make the user choose again
     def change_value_on_board(self, player_index, player_choice):
         if self.__is_move_valid(player_index, player_choice):
-            self.board_list[player_index] = player_choice
+            self.board_list[player_index-1] = player_choice
             return True
         else:
             return False
@@ -71,7 +74,7 @@ class TwoDemBoard:
     # Inside (Private) function that checks for a Row that includes the same values, three 'X' or three 'O'.
     # Input: only the self.board_list that is built in our class
     # returns True,'X' or 'O' if the indexes 0,1,2 (1st row) or 3,4,5 (2nd row) or 6,7,8 (3rd row) is the same value
-    def __check_row_winner(self,num):
+    def __check_row_winner(self):
         my_list = self.board_list
         for i in range(0, len(my_list), 3):
             if my_list[i] == my_list[i+1] and my_list[i] == my_list[i+2]:
