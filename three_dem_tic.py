@@ -95,7 +95,7 @@ class ThreeDemBoard:
         print(
             f"{self.game_players[0].name} you have been chosen to start the game as {self.game_players[0].symbol}!\n"
             f"Please make a move: ")
-        while True:
+        while not self.is_tie():
             self.move_on_which_board(self.game_players[0].symbol)
             if self.check_for_3d_winner(self.game_players[0]):
                 return
@@ -103,3 +103,9 @@ class ThreeDemBoard:
             if self.check_for_3d_winner(self.game_players[1]):
                 return
 
+    def is_tie(self):
+        if self.board_list[0].is_board_full() and self.board_list[1].is_board_full() and self.board_list[2].is_board_full():
+            print("Game Over..")
+            print("It's a Tie!")
+            return True
+        return False

@@ -104,3 +104,15 @@ class TwoDemBoard:
             return True, my_list[4]
         else:
             return (False, )
+
+    # <<<<<<<<<<<<<<<<<<<<<<<<<<< Need to add counter after every turn >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    def is_board_full(self):
+        my_list = self.board_list
+
+        for cell in my_list:
+            if type(cell) == int:
+                return False
+
+        return True
+
