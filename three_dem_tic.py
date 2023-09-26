@@ -45,23 +45,29 @@ class ThreeDemBoard:
     def __get_board_num():
         flag = True
         while flag:
-            board_num = input(f"Enter board number (1-3): ")
-            if board_num.isdigit():
-                board_num = int(board_num)
-                if 1 <= board_num <= 3:
-                    flag = False
+            try:
+                board_num = inputimeout(prompt=f"Enter board number (1-3): ", timeout=60)
+                if board_num.isdigit():
+                    board_num = int(board_num)
+                    if 1 <= board_num <= 3:
+                        flag = False
+                        return board_num
+
+                    else:
+                        print("Wrong Number, we only have 3 boards!")
                 else:
-                    print("Wrong Number, we only have 3 boards!")
-            else:
-                print("Please enter a number between 1 to 3 to choose a board")
-        return board_num
+                    print("Please enter a number between 1 to 3 to choose a board")
+            except Exception:
+                print("60 seconds has passed, moving on to next player move!")
+                return 0
+            
 
     @staticmethod
     def __get_desired_cell():
         flag = True
         while flag:
             try:
-                desired_cell = inputimeout(prompt=f"Enter desired cell number (1-9): ", timeout=5)
+                desired_cell = inputimeout(prompt=f"Enter desired cell number (1-9): ", timeout=60)
                 if desired_cell.isdigit():
                     desired_cell = int(desired_cell)
                     if 1 <= desired_cell <= 9:
@@ -73,23 +79,24 @@ class ThreeDemBoard:
                 return desired_cell
 
             except Exception:
-                # Declare the timeout statement
-                time_over = 'Your time is over!'
-                print(time_over)
-    def move_on_which_board(self, choice):
-        board_num = self.__get_board_num()
-        if board_num in [1, 2, 3]:
-            self.boards_list[board_num - 1].print_board(board_num)
-            try:
-                choice_on_board = self.__get_desired_cell()
-                if not self.boards_list[board_num - 1].change_value_on_board(choice_on_board, choice):
-                    self.move_on_which_board(choice)
-            except Exception:
-                # Declare the timeout statement
-                time_over = 'Your time is over round 2!'
-                print(time_over)
+                print("60 seconds has passed, moving on to next player move!")
+                return 0
 
-        self.print_all()
+    def move_on_which_board(self, choice):
+        print()
+        print("You have 60 Seconds to make a move!")
+        board_num = self.__get_board_num()
+        if board_num != 0:
+            if board_num in [1, 2, 3]:
+                self.boards_list[board_num - 1].print_board(board_num)
+
+                choice_on_board = self.__get_desired_cell()
+                if choice_on_board != 0:
+                    if not self.boards_list[board_num - 1].change_value_on_board(choice_on_board, choice):
+                        self.move_on_which_board(choice)
+                
+
+            self.print_all()
 
     # Inside (Private) function that checks for a 3D Column that includes the same values and type (str), three 'X' or three 'O'.
     # Input: only the self.board_lists that is built in our class
