@@ -116,3 +116,16 @@ class TwoDemBoard:
 
         return True
 
+# if __name__ == "__main__":
+#     board = TwoDemBoard()
+#     board.init_board()
+#     board.change_value_on_board(1,"X")
+#     board.change_value_on_board(2, "X")
+#     board.change_value_on_board(3, "O")
+#     board.change_value_on_board(4, "O")
+#     board.change_value_on_board(5, "X")
+#     board.change_value_on_board(6, "X")
+#     #board.change_value_on_board(7, "X")
+#     board.change_value_on_board(8, "O")
+#     board.change_value_on_board(9, "O")
+#     print(board.is_board_full())
