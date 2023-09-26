@@ -78,8 +78,38 @@ class ThreeDemBoard:
 
         self.print_all()
 
+      # Inside (Private) function that checks for a 3D Column that includes the same values and type (str), three 'X' or three 'O'.
+    # Input: only the self.board_lists that is built in our class
+    # returns True,'X' or 'O' if the board cell is equal to the same boards cells in the two other boards.
+    def __check_3d_col_winner(self):
+        # A for loop that runs on all three boards 0-8 indexes:
+        for i in range(9):  
+            if self.board1.board_list[i] == self.board2.board_list[i] == self.board3.board_list[i]\
+                  and isinstance(self.board1.board_list[i], str): # <---Check for strings type ONLY 'X' or 'O'-NOT pre-filled integers.
+                return True, self.board1.board_list[i]
+        # for loop finished and it did Not find a match for a win
+        return (False,)
+    
+    # Inside (Private) function that checks for a 3D Diagonal that includes the same values, three 'X' or three 'O'.
+    # Input: only the self.board_lists that is built in our class
+    # returns True,'X' or 'O' if the indexes 0,4,8  or 2,4,6 on the 3 boards are equal.
+    def __check_3d_diagonal_winner(self):
+      if (
+        self.board1.board_list[0] == self.board2.board_list[4] == self.board3.board_list[8] or
+        self.board1.board_list[2] == self.board2.board_list[4] == self.board3.board_list[6] or
+        self.board3.board_list[0] == self.board2.board_list[4] == self.board1.board_list[8] or
+        self.board3.board_list[2] == self.board2.board_list[4] == self.board1.board_list[6]
+      ):
+        # return True, if one of the diagonal mathces a win:
+        return True, self.board2.board_list[4]
+      else:
+        return False,
+
     def check_for_3d_winner(self, winner_player):
-        if self.board_list[0].check_for_winner() or self.board_list[1].check_for_winner() or self.board_list[2].check_for_winner():
+        col_3d_win = self.__check_3d_col_winner()
+        diagonal_3d_win = self.__check_3d_diagonal_winner()
+        if self.board_list[0].check_for_winner() or self.board_list[1].check_for_winner() or self.board_list[2].check_for_winner() \
+            or col_3d_win[0] or diagonal_3d_win[0]:
             print(f"{winner_player.name} is the Winner! ;)")
             winner_player.add_win_count()
             for i in range(3):
@@ -87,7 +117,16 @@ class ThreeDemBoard:
             return True
         else:
             return False
-
+        # col_3d_win = self.__check_3d_col_winner()
+        # diagonal_3d_win = self.__check_3d_diagonal_winner()
+        # if col_3d_win[0]:
+        #     print(f"we have a Winner. {col_3d_win[1]} Player!")
+        #     return True
+        # elif diagonal_3d_win[0]:
+        #     print(f"we have a Winner. {diagonal_3d_win[1]} Player!")
+        #     return True
+        # else:
+        #     return False
         ###continue the check of 3d winner..
 
     def start_game(self):
